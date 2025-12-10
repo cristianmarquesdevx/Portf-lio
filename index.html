@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cristian Marques | Desenvolvedor - Front-end</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius: 10px;
+            --card-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        .dark-mode {
+            --dark: #f8fafc;
+            --light: #0f172a;
+            --gray: #94a3b8;
+            --light-gray: #1e293b;
+            --card-bg: rgba(15, 23, 42, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        .dark-mode body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(248, 250, 252, 0.92);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            padding: 10px 0;
+        }
+
+        .dark-mode header {
+            background-color: rgba(15, 23, 42, 0.92);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-3px);
+            color: var(--primary-dark);
+        }
+
+        .logo span {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 1.1rem;
+            padding: 5px 0;
+        }
+
+        .dark-mode .nav-links a {
+            color: var(--light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--light);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+            color: var(--secondary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .dark-mode .hamburger {
+            color: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 600px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image .image-wrapper {
+            position: relative;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            overflow: hidden;
+            width: 380px;
+            height: 380px;
+            border: 8px solid rgba(67, 97, 238, 0.15);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: morph 8s ease-in-out infinite;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+        }
+
+        .hero-image .image-wrapper:hover {
+            animation-play-state: paused;
+            transform: scale(1.05);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -5px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            display: inline-block;
+            position: relative;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .about-text p {
+            margin-bottom: 25px;
+            color: var(--gray);
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .skills-container {
+            margin-top: 40px;
+        }
+
+        .skill-row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .skill-name {
+            width: 150px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .dark-mode .skill-name {
+            color: var(--light);
+        }
+
+        .skill-bar {
+            flex: 1;
+            height: 12px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dark-mode .skill-bar {
+            background-color: #334155;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            position: relative;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .skill-percent {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .about-stats {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .stat-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card i {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card h4 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-card p {
+            color: var(--gray);
+            font-size: 1.15rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark-mode .project-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .project-image i {
+            z-index: 2;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background-color: var(--light-gray);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .dark-mode .tech-tag {
+            background-color: #334155;
+        }
+
+        .tech-tag:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .project-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            padding: 8px 0;
+        }
+
+        .project-links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-card {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: var(--transition);
+            padding: 20px;
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .contact-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-details h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .contact-details p, .contact-details a {
+            color: var(--gray);
+            font-size: 1.15rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .contact-form {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--dark);
+        }
+
+        .dark-mode .form-group label {
+            color: var(--light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            font-size: 1.05rem;
+        }
+
+        .dark-mode .form-control {
+            background-color: rgba(15, 23, 42, 0.2);
+            border-color: #334155;
+            color: var(--light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Form Status Messages */
+        .form-status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: var(--radius);
+            display: none;
+            font-weight: 600;
+        }
+
+        .form-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .form-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%234361ee"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%234361ee"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%234361ee"/></svg>');
+            background-size: cover;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .footer-col p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px) rotate(10deg);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 18px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(8px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            33% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+            66% { border-radius: 39% 61% 29% 71% / 71% 33% 67% 29%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Floating Elements */
+        .floating-nav {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+            background: var(--card-bg);
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            display: flex;
+            padding: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-nav a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            color: var(--primary);
+            background-color: var(--light-gray);
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .dark-mode .floating-nav a {
+            background-color: #334155;
+        }
+
+        .floating-nav a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                margin-top: 40px;
+            }
+            
+            .hero-text p {
+                margin: 0 auto 40px;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--card-bg);
+                width: 70%;
+                height: calc(100vh - 80px);
+                align-items: center;
+                padding: 50px 20px;
+                gap: 40px;
+                transition: var(--transition);
+                backdrop-filter: blur(10px);
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .hamburger {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-nav {
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 2.3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .stat-card {
+                padding: 25px 15px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+            }
+
+            .floating-nav {
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .whatsapp-float {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-terminal"></i>
+                    Cristian<span>Marques</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#projects">Projetos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Floating Navigation -->
+    <div class="floating-nav">
+        <a href="#home" title="Home"><i class="fas fa-home"></i></a>
+        <a href="#about" title="Sobre"><i class="fas fa-user"></i></a>
+        <a href="#projects" title="Projetos"><i class="fas fa-code"></i></a>
+        <a href="#contact" title="Contato"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5569992535934" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Transformando ideias em <span>realidade digital</span></h1>
+                    <div class="subtitle">Desenvolvedor Front-end & Especialista em Soluções</div>
+                    <p>Combinando criatividade e expertise técnica para criar experiências digitais excepcionais. Especialista em JavaScript, React, Node.js e arquiteturas escaláveis que impulsionam resultados de negócios.</p>
+                    <div class="hero-btns">
+                        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> Meus Projetos</a>
+                        <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contato</a>
+                    </div>
+                </div>
+                <div class="hero-image fade-in delay-1">
+                    <div class="image-wrapper">
+                        <img src="img01.png" alt="Cristian Marques">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Sobre Mim</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Arquiteto de Soluções Digitais</h3>
+                    <p>Olá! Sou o Cristian, um desenvolvedor front-end com mais de 3 anos de experiência transformando desafios complexos em soluções digitais elegantes. Minha jornada começou aos 16 anos, e desde então venho aprimorando minhas habilidades para criar experiências que encantam usuários e impulsionam negócios.</p>
+                    <p>Especializado em JavaScript, possuo expertise tanto no front-end (React, Vue) quanto no back-end (Node.js, Express). Minha abordagem combina design intuitivo com arquitetura robusta, garantindo soluções escaláveis e de alto desempenho.</p>
+                    
+                    <div class="skills-container">
+                        <h3 style="margin: 40px 0 25px;">Minhas Habilidades</h3>
+                        <div class="skill-row">
+                            <div class="skill-name">JavaScript</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percent="95">
+                                    <span class="skill-percent">95%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-name">React</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percent="90">
+                                    <span class="skill-percent">90%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-name">Node.js</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percent="92">
+                                    <span class="skill-percent">92%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-name">TypeScript</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percent="85">
+                                    <span class="skill-percent">85%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-name">Banco de Dados</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-percent="88">
+                                    <span class="skill-percent">88%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-card fade-in delay-1">
+                        <i class="fas fa-code"></i>
+                        <h4>50+</h4>
+                        <p>Projetos Completados</p>
+                    </div>
+                    
+                    <div class="stat-card fade-in delay-2">
+                        <i class="fas fa-users"></i>
+                        <h4>30+</h4>
+                        <p>Clientes Satisfeitos</p>
+                    </div>
+                    
+                    <div class="stat-card fade-in delay-3">
+                        <i class="fas fa-hourglass-half"></i>
+                        <h4>10k+</h4>
+                        <p>Horas de Programação</p>
+                    </div>
+                    
+                    <div class="stat-card fade-in delay-4">
+                        <i class="fas fa-coffee"></i>
+                        <h4>∞</h4>
+                        <p>Xícaras de Café</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Projetos Destacados</h2>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <div class="project-image" style="background: linear-gradient(135deg, #4361ee, #4895ef);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plataforma E-commerce</h3>
+                        <p>Solução completa de e-commerce com carrinho de compras, integração de pagamentos, sistema de avaliações e painel administrativo avançado.</p>
+                        <div class="project-tech">
+                            <div class="tech-tag">React</div>
+                            <div class="tech-tag">Node.js</div>
+                            <div class="tech-tag">MongoDB</div>
+                            <div class="tech-tag">Stripe API</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> Código</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card fade-in delay-1">
+                    <div class="project-image" style="background: linear-gradient(135deg, #f72585, #b5179e);">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>App de Finanças</h3>
+                        <p>Aplicativo mobile para controle financeiro pessoal com gráficos interativos, categorização automática, planejamento orçamentário e relatórios detalhados.</p>
+                        <div class="project-tech">
+                            <div class="tech-tag">React Native</div>
+                            <div class="tech-tag">Supabase</div>
+                            <div class="tech-tag">Redux</div>
+                            <div class="tech-tag">Chart.js</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> Código</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card fade-in delay-2">
+                    <div class="project-image" style="background: linear-gradient(135deg, #4cc9f0, #4895ef);">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Plataforma de Cursos</h3>
+                        <p>Sistema LMS completo para criação, distribuição e gerenciamento de cursos online com player de vídeo avançado, sistema de certificação e avaliações.</p>
+                        <div class="project-tech">
+                            <div class="tech-tag">Vue.js</div>
+                            <div class="tech-tag">Express</div>
+                            <div class="tech-tag">PostgreSQL</div>
+                            <div class="tech-tag">AWS S3</div>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i> Código</a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Vamos Conectar</h2>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-card fade-in">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <a href="mailto:cristian.shred@gmail.com">cristian.shred@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card fade-in delay-1">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Telefone</h4>
+                            <a href="tel:+5569992535934">+55 (69) 99253-5934</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card fade-in delay-2">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Localização</h4>
+                            <p>Porto Velho, Brasil</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card fade-in delay-3">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>LinkedIn</h4>
+                            <a href="#">/cristianmarques</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in delay-4">
+                    <!-- Formspree Integration -->
+                    <form 
+                        id="contactForm" 
+                        action="https://formspree.io/f/mzzglwgz" 
+                        method="POST"
+                    >
+                        <div id="formStatus" class="form-status"></div>
+                        
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Assunto</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-wave"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Cristian Marques</h3>
+                    <p>Desenvolvedor Full-Stack dedicado a criar soluções digitais inovadoras que resolvem problemas reais e melhoram a experiência do usuário.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Navegação</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> Sobre</a></li>
+                        <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projetos</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Serviços</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Desenvolvimento Web</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Aplicativos Mobile</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> UI/UX Design</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Consultoria</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Inscreva-se para receber atualizações sobre novos projetos e artigos.</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Seu email">
+                    </div>
+                    <button class="btn btn-outline" style="color: white; border-color: white;">Inscrever-se</button>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Cristian Marques. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicializar partículas
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#4361ee" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#4361ee", opacity: 0.1, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" } }
+            }
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        // Formspree Submission with AJAX
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Disable submit button
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            // Form data
+            const formData = new FormData(contactForm);
+            
+            // AJAX request
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success message
+                    formStatus.innerHTML = 'Mensagem enviada com sucesso! Entrarei em contato em breve.';
+                    formStatus.classList.add('success');
+                    formStatus.classList.remove('error');
+                    formStatus.style.display = 'block';
+                    
+                    // Reset form
+                    contactForm.reset();
+                } else {
+                    throw new Error('Erro ao enviar mensagem');
+                }
+            })
+            .catch(error => {
+                // Error message
+                formStatus.innerHTML = 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.';
+                formStatus.classList.add('error');
+                formStatus.classList.remove('success');
+                formStatus.style.display = 'block';
+            })
+            .finally(() => {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensagem';
+                
+                // Hide status after 5 seconds
+                setTimeout(() => {
+                    formStatus.style.display = 'none';
+                }, 5000);
+            });
+        });
+        
+        // Smooth Scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Active link highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const floatingLinks = document.querySelectorAll('.floating-nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            // Update navigation links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update floating navigation
+            floatingLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+            hamburger.innerHTML = document.querySelector('.nav-links').classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Animate skill bars
+                    if (entry.target.id === 'about') {
+                        document.querySelectorAll('.skill-progress').forEach(bar => {
+                            const percent = bar.getAttribute('data-percent');
+                            bar.style.width = percent + '%';
+                        });
+                    }
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize skill bars if about section is in view on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const aboutSection = document.getElementById('about');
+            if (aboutSection.getBoundingClientRect().top < window.innerHeight * 0.8) {
+                document.querySelectorAll('.skill-progress').forEach(bar => {
+                    const percent = bar.getAttribute('data-percent');
+                    bar.style.width = percent + '%';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
